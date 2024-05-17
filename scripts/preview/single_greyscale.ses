@@ -1,7 +1,8 @@
+// This script can only be used to preview projects with a single frame.
+
 (image orig -> image) {
     ~ image res = blank(orig.w, orig.h);
-    ~ int w = res.w;
-    ~ int h = res.h;
+    ~ int w = res.w; ~ int h = res.h;
 
     for (int x = 0; x < w; x++)
         for (int y = 0; y < h; y++)
@@ -11,8 +12,6 @@
 }
 
 greyscale(color c -> color) {
-    int total = c.r + c.g + c.b;
-    int avg = total / 3;
-
+    int avg = (c.r + c.g + c.b) / 3;
     return rgba(avg, avg, avg, c.a);
 }

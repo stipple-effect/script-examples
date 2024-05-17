@@ -1,0 +1,25 @@
+// This script can be used to preview any project, whether it is an animation or a single frame.
+
+(image[] orig -> image[]) {
+    ~ int fc = #| orig;
+    ~ image[] res = new image[fc];
+
+    for (int f = 0; f < fc; f++) {
+        ~ image orig_frm = orig[f];
+        ~ int w = orig_frm.w; ~ int h = orig_frm.h;
+        ~ image res_frm = blank(w, h);
+
+        for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+                res_frm.dot(greyscale(orig_frm.pixel(x, y)), x, y);
+
+        res[f] = res_frm;
+    }
+
+    return res;
+}
+
+greyscale(color c -> color) {
+    int avg = (c.r + c.g + c.b) / 3;
+    return rgba(avg, avg, avg, c.a);
+}
