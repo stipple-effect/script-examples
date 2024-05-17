@@ -1,0 +1,18 @@
+(image orig -> image) {
+    ~ image res = blank(orig.w, orig.h);
+    ~ int w = res.w;
+    ~ int h = res.h;
+
+    for (int x = 0; x < w; x++)
+        for (int y = 0; y < h; y++)
+            res.dot(greyscale(orig.pixel(x, y)), x, y);
+
+    return res;
+}
+
+greyscale(color c -> color) {
+    int total = c.r + c.g + c.b;
+    int avg = total / 3;
+
+    return rgba(avg, avg, avg, c.a);
+}
