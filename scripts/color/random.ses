@@ -1,0 +1,3 @@
+(color c -> color) -> rgb(rc(), rc(), rc())
+
+rc(-> int) -> rand(0, 0x100)

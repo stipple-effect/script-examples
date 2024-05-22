@@ -1,0 +1,27 @@
+(~ color c -> color) {
+    ~ float BLUE_HUE = 2 / 3.0;
+    ~ float FACTOR = 0.2; ~ float AMBIENT_FACTOR = 1.1;
+
+    float h = $hue(c);
+    float s = $sat(c);
+    float v = $value(c);
+
+    ~ float shift = FACTOR * diff(BLUE_HUE, h);
+
+    h = min([
+        normalize(h + shift), normalize(h - shift)
+    ]);
+    s = min(s * AMBIENT_FACTOR, 1.0);
+    v /= AMBIENT_FACTOR;
+
+    return $hsv(h, s, v, c.a);
+}
+
+diff(float ref, float val -> float) {
+    if (ref > val)
+        return min(ref - val, (val + 1.0) - ref);
+    else
+        return min(val - ref, (ref + 1.0) - val);
+}
+
+normalize(~ float h -> float) -> h < 0.0 ? h + 1.0 : (h >= 1.0 ? h - 1.0 : h)
