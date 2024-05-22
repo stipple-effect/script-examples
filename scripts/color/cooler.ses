@@ -7,10 +7,9 @@
     float v = $value(c);
 
     ~ float shift = FACTOR * diff(BLUE_HUE, h);
+    ~ float shiftVector = shift * (flip(BLUE_HUE, h) ? -1 : 1);
 
-    h = min([
-        normalize(h + shift), normalize(h - shift)
-    ]);
+    h = normalize(h + shiftVector);
     s = min(s * AMBIENT_FACTOR, 1.0);
     v /= AMBIENT_FACTOR;
 
@@ -22,6 +21,13 @@ diff(float ref, float val -> float) {
         return min(ref - val, (val + 1.0) - ref);
     else
         return min(val - ref, (ref + 1.0) - val);
+}
+
+flip(float ref, float val -> bool) {
+    if (ref > val)
+        return ref - val > (val + 1.0) - ref;
+    else
+        return val - ref < (ref + 1.0) - val;
 }
 
 normalize(~ float h -> float) -> h < 0.0 ? h + 1.0 : (h >= 1.0 ? h - 1.0 : h)
