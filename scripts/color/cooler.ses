@@ -2,9 +2,9 @@
     ~ float BLUE_HUE = 2 / 3.0;
     ~ float FACTOR = 0.2; ~ float AMBIENT_FACTOR = 1.1;
 
-    float h = $hue(c);
-    float s = $sat(c);
-    float v = $value(c);
+    float h = c.hue;
+    float s = c.sat;
+    float v = c.val;
 
     ~ float shift = FACTOR * diff(BLUE_HUE, h);
     ~ float shiftVector = shift * (flip(BLUE_HUE, h) ? -1 : 1);
@@ -13,7 +13,7 @@
     s = min(s * AMBIENT_FACTOR, 1.0);
     v /= AMBIENT_FACTOR;
 
-    return $hsv(h, s, v, c.a);
+    return $SE.hsv(h, s, v, c.a);
 }
 
 diff(float ref, float val -> float) {

@@ -1,11 +1,13 @@
+// This script reverses the frames in a project.
+
 () {
-    ~ project p = $get_project();
-    ~ int fc = $get_frame_count(p);
+    ~ project p = $SE.get_project();
+    ~ int fc = p.get_frame_count();
 
     for (int ops = fc - 1; ops > 0; ops--) {
-        $set_frame_index(p, 0);
-
+        p.set_frame_index(0);
+        
         for (int op = 0; op < ops; op++)
-            $move_frame_forward(p);
+            p.move_frame_forward();
     }
 }

@@ -1,5 +1,3 @@
-// This script can be used to preview any project, whether it is an animation or a single frame.
-
 (image[] orig -> image[]) {
     ~ int fc = #| orig;
     ~ image[] res = new image[fc];
