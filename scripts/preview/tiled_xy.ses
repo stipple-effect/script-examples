@@ -1,0 +1,11 @@
+(~ image img -> image) {
+    ~ int w = img.w; ~ int h = img.h;
+
+    ~ image res = blank(w * 3, h * 3);
+
+    for (int x = 0; x < w; x++)
+        for (int y = 0; y < h; y++)
+            res.draw(img, w * x, h * y);
+    
+    return res;
+}
