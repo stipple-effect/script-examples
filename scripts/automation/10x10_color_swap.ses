@@ -1,8 +1,8 @@
 // This script is intended to be run on a small project consisting of a single layer and a single frame.
 
 () {
-    // SEL_SCOPE is a constant that represents the scope enumeration constant SELECTION
-    ~ int SEL_SCOPE = 0; ~ int DIM = 10;
+    // CEL_SCOPE is a constant that represents the scope enumeration constant LAYER_FRAME
+    ~ int CEL_SCOPE = 3; ~ int DIM = 10;
     
     // Fetches the active project
     ~ project p = $SE.get_project();
@@ -15,13 +15,11 @@
         p.add_frame();
         p.get_layer().set_frame(p.get_frame_index(), orig);
 
-        // Defines HSV shift values. The values for saturation and value range from halving the property to doubling it.
+        // Defines hue shift value as any random hue shift
         ~ int hShift = rand(-180, 180);
-        ~ float sShift = rand(0.5, 2.0);
-        ~ float vShift = rand(0.5, 2.0);
 
         // Shifts the colors of the pixels that are currently selection by the amounts set out by the HSV shift values
-        p.hsv_shift(SEL_SCOPE, true, hShift, sShift, vShift);
+        p.hsv_shift(CEL_SCOPE, true, false, hShift, 0, 0);
     }
 
     // Stitches the 100 frames together into a single sprite sheet of 10x10 frames

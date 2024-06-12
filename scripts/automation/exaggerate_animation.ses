@@ -1,0 +1,11 @@
+() {
+    ~ project p = $SE.get_project();
+    ~ int fc = p.get_frame_count();
+    ~ float[] timings = p.get_frame_durations();
+
+    for (int f = 0; f < fc; f++) {
+        ~ float exag = clamp(0.1, 1f + (2 * (timings[f] - 1f)), 20f);
+        
+        p.set_frame_duration(f, exag);
+    }
+}
