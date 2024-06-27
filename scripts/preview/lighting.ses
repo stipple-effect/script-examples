@@ -1,0 +1,99 @@
+(~ image player -> image[]) {
+    ~ int LEVELS = 4; ~ int FRAME_COUNT = (LEVELS * 2) + 1;
+
+    ~ image[] frames = new image[FRAME_COUNT];
+
+    for (int i = 0; i < FRAME_COUNT; i++) {
+        image frame = blank(player.w, player.h);
+        frame.draw(player, 0, 0);
+        
+        if (i == LEVELS)
+            frames[i] = frame;
+        else {
+            ~ (image -> image) f = i < LEVELS ? ::warm : ::cool;
+            ~ int reps = abs(LEVELS - i);
+
+            for (int r = 0; r < reps; r++)
+                frame = f.call(frame);
+
+            frames[i] = frame;
+        }
+    }
+
+    return frames;
+}
+
+warm(~ image orig -> image) -> transform(orig, ::warm_c)
+cool(~ image orig -> image) -> transform(orig, ::cool_c)
+
+transform(~image orig, ~ (color -> color) color_func -> image) {
+    ~ {color:color} cache = new {color:color};
+    ~ image res = blank(orig.w, orig.h);
+
+    for (int x = 0; x < orig.w; x++)
+        for (int y = 0; y < orig.h; y++) {
+            ~ color sample = orig.pixel(x, y);
+
+            if (sample.a > 0) {
+                ~ color match = cache.has(sample) 
+                        ? cache.lookup(sample) 
+                        : color_func.call(sample);
+                
+                res.dot(match, x, y);
+            }
+        }
+    
+    return res;
+}
+
+warm_c(~ color c -> color) {
+    ~ float YELLOW_HUE = 1 / 6.0;
+    ~ float FACTOR = 0.05; ~ float AMBIENT_FACTOR = 1.1;
+
+    float h = c.hue;
+    float s = c.sat;
+    float v = c.val;
+
+    ~ float shift = FACTOR * diff(YELLOW_HUE, h);
+    ~ float shiftVector = shift * (flip(YELLOW_HUE, h) ? -1 : 1);
+
+    h = normalize(h + shiftVector);
+    s = min(s * AMBIENT_FACTOR, 1.0);
+    v = min(v * AMBIENT_FACTOR, 1.0);
+
+    return $SE.hsv(h, s, v, c.a);
+}
+
+cool_c(~ color c -> color) {
+    ~ float BLUE_HUE = 2 / 3.0;
+    ~ float FACTOR = 0.05; ~ float AMBIENT_FACTOR = 1.1;
+
+    float h = c.hue;
+    float s = c.sat;
+    float v = c.val;
+
+    ~ float shift = FACTOR * diff(BLUE_HUE, h);
+    ~ float shiftVector = shift * (flip(BLUE_HUE, h) ? -1 : 1);
+
+    h = normalize(h + shiftVector);
+    s = min(s * AMBIENT_FACTOR, 1.0);
+    v /= AMBIENT_FACTOR;
+
+    return $SE.hsv(h, s, v, c.a);
+}
+
+diff(float ref, float val -> float) {
+    if (ref > val)
+        return min(ref - val, (val + 1.0) - ref);
+    else
+        return min(val - ref, (ref + 1.0) - val);
+}
+
+flip(float ref, float val -> bool) {
+    if (ref > val)
+        return ref - val > (val + 1.0) - ref;
+    else
+        return val - ref < (ref + 1.0) - val;
+}
+
+normalize(~ float h -> float) -> h < 0.0 ? h + 1.0 : (h >= 1.0 ? h - 1.0 : h)
