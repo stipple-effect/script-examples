@@ -8,4 +8,4 @@ Useful links:
 * [_Stipple Effect_ scripting API](https://github.com/jbunke/stipple-effect/wiki/Scripting-API)
 * [_DeltaScript_ language specification](https://github.com/jbunke/delta-time/wiki/DeltaScript-%E2%80%93-Language-specification)
 * [Example scripts written in the _DeltaScript_ base language](https://github.com/jbunke/deltascript-examples)
-* [*DeltaScript for Stipple Effect - VS Code syntax highlighting extension](https://marketplace.visualstudio.com/items?itemName=jordanbunke.deltascript-for-stipple-effect)
+* [*DeltaScript for Stipple Effect* - VS Code syntax highlighting extension](https://marketplace.visualstudio.com/items?itemName=jordanbunke.deltascript-for-stipple-effect)
