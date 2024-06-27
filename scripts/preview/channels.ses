@@ -9,22 +9,20 @@ sep_channels(~ image orig -> image) {
     ~ int w = orig.w; ~ int h = orig.h;
     ~ bool vert = w > h;
 
-    ~ int CHANNELS = 3;
+    ~ (color -> color)[] fs = [ ::red, ::green, ::blue ];
 
-    ~ image separated = vert ? blank(w, h * CHANNELS) : blank(w * CHANNELS, h);
-    ~ {int : (color -> color)} indexMap = {
-        0 : ::red, 1 : ::green, 2 : ::blue
-    };
+    ~ int CHANNELS = #|fs;
+    ~ image separated = vert
+            ? blank(w, h * CHANNELS)
+            : blank(w * CHANNELS, h);
 
     for (int i = 0; i < CHANNELS; i++) {
         ~ image c_img = blank(w, h);
-        ~ (color -> color) f = indexMap.lookup(i);
+        ~ (color -> color) f = fs[i];
 
         for (int x = 0; x < w; x++)
-            for (int y = 0; y < h; y++) {
-                ~ color c = orig.pixel(x, y);
-                c_img.dot(f.call(c), x, y);
-            }
+            for (int y = 0; y < h; y++)
+                c_img.dot(f.call(orig.pixel(x, y)), x, y);
         
         separated.draw(c_img, vert ? 0 : i * w, vert ? i * h : 0);
     }
