@@ -1,25 +1,24 @@
 // This script is intended to be run on a small project consisting of a single layer and a single frame.
 
 () {
-    // CEL_SCOPE is a constant that represents the scope enumeration constant LAYER_FRAME
-    ~ int CEL_SCOPE = 3; ~ int DIM = 10;
+    ~ int DIM = 10;
     
     // Fetches the active project
     ~ project p = $SE.get_project();
 
     // Gets the contents of the first frame of the editing layer
-    ~ image orig = p.get_layer().get_frame(0);
+    ~ image orig = p.get_layer().get_cel(0);
 
     while (p.get_frame_count() < DIM * DIM) {
         // Adds frames until the frame count is 100 and sets the contents of each added frame to the contents of the first frame
         p.add_frame();
-        p.get_layer().set_frame(p.get_frame_index(), orig);
+        p.get_layer().set_cel(p.get_frame_index(), orig);
 
         // Defines hue shift value as any random hue shift
         ~ int hShift = rand(-180, 180);
 
-        // Shifts the colors of the pixels that are currently selection by the amounts set out by the HSV shift values
-        p.hsv_shift(CEL_SCOPE, true, false, hShift, 0, 0);
+        // Shifts the colors of the pixels that are currently selected by the amounts set out by the HSV shift values
+        p.hsv_shift($SE.CEL, true, false, hShift, 0, 0);
     }
 
     // Stitches the 100 frames together into a single sprite sheet of 10x10 frames

@@ -1,0 +1,20 @@
+() {
+    project p = $SE.get_project();
+    layer l = p.get_layer();
+    int fc = p.get_frame_count();
+
+    for (int f = 0; f < fc; f++) {
+        image cel = l.get_cel(f);
+        l.edit_cel(f, outline_and_fill(p, cel, #ffffff));
+    }
+
+    p.deselect();
+}
+
+outline_and_fill(project p, image cel, color c -> image) {
+    p.set_selection($SE.wand(cel, 0, 0, 0f, true, false));
+    p.invert_selection();
+    
+    int[]{} outline = $SE.single_outline(p.get_selection(), 1);
+    return $SE.fill_selection(cel, c, outline);
+}

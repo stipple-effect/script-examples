@@ -1,0 +1,5 @@
+(~ color at -> color) {
+    ~ color system = $SE.get_primary();
+
+    return $SE.hsv(system.hue, system.sat, at.val, at.a);
+}

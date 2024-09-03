@@ -10,8 +10,8 @@
 
     for (int l = 0; l < #|ls; l++) {
         for (int f = 0; f < fc; f++) {
-            ~ image frame = ls[l].get_frame(f);
-            ls[l].set_frame(f + fc, frame);
+            ~ image cel = ls[l].get_cel(f);
+            ls[l].set_cel(f + fc, cel);
         }
     }
 }

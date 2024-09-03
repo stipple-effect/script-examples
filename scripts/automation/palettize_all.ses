@@ -1,10 +1,9 @@
 // This script palettizes every open project in Stipple Effect and saves it.
 () {
-    ~ int PROJECT_SCOPE = 0;
     ~ palette pal = $SE.get_pal();
 
     for (~ project p in $SE.get_projects()) {
-        p.palettize(pal, PROJECT_SCOPE, true, true);
+        p.palettize(pal, $SE.PROJECT, true, true);
         p.save();
     }
 }

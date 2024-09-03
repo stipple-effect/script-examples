@@ -1,11 +1,4 @@
-(~ image[] orig -> image[]) {
-    for (int i = 0; i < #|orig; i++)
-        orig[i] = sep_channels(orig[i]);
-    
-    return orig;
-}
-
-sep_channels(~ image orig -> image) {
+(~ image orig -> image) {
     ~ int w = orig.w; ~ int h = orig.h;
     ~ bool vert = w > h;
 
