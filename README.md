@@ -19,11 +19,3 @@ The file extension for *Stipple Effect* scripts is `.ses`. This is the file mask
 ## *DeltaScript for Stipple Effect* - VS Code syntax highlighting extension
 
 To make it easier to write scripts for *Stipple Effect*, I have published [a VS Code extension](https://marketplace.visualstudio.com/items?itemName=jordanbunke.deltascript-for-stipple-effect) that provides syntax highlighting for scripts.
-
----
-
-**SEE ALSO**
-
-* [An overview of scripting in *Stipple Effect*](https://github.com/jbunke/stipple-effect/wiki/Scripting)
-* [*Stipple Effect* scripting API specification](https://github.com/jbunke/stipple-effect/wiki/Scripting-API)
-* [*DeltaScript for Stipple Effect* - VS Code syntax highlighting extension](https://marketplace.visualstudio.com/items?itemName=jordanbunke.deltascript-for-stipple-effect)
