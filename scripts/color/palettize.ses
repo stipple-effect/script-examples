@@ -1,0 +1,33 @@
+(color c -> color) {
+    if (!$SE.has_pal())
+        return c;
+    
+    ~ palette pal = $SE.get_pal();
+
+    if (#|pal.included() == 0 || pal.included().has(c))
+        return c;
+
+    ~ int MAX_DIFF = 0x400;
+    int min_dist = MAX_DIFF;
+    color closest = c;
+
+    for (p in pal.included()) {
+        int dist = diff(c, p);
+
+        if (dist < min_dist) {
+            min_dist = dist;
+            closest = p;
+        }
+    }
+
+    return closest;
+}
+
+diff(color a, color b -> int) {
+    ~ int r_diff = abs(a.r - b.r);
+    ~ int g_diff = abs(a.g - b.g);
+    ~ int b_diff = abs(a.b - b.b);
+    ~ int a_diff = abs(a.a - b.a);
+
+    return r_diff + g_diff + b_diff + a_diff;
+}

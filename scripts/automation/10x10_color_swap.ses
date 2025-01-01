@@ -6,6 +6,13 @@
     // Fetches the active project
     ~ project p = $SE.get_project();
 
+    if (#|p.get_layers() > 1 || p.get_frame_count() > 1)
+        return;
+    
+    // Unlinks the cels of the layer if they are linked
+    if (p.get_layer().is_linked())
+        p.get_layer().unlink_cels();
+
     // Gets the contents of the first frame of the editing layer
     ~ image orig = p.get_layer().get_cel(0);
 

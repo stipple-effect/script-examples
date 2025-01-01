@@ -1,19 +1,10 @@
-(image[] orig -> image[]) {
-    ~ int fc = #| orig;
-    ~ image[] res = new image[fc];
+(image orig -> image) {
+    ~ image res = new_image_of(orig.w, orig.h);
 
-    for (int f = 0; f < fc; f++) {
-        ~ image orig_frm = orig[f];
-        ~ int w = orig_frm.w; ~ int h = orig_frm.h;
-        ~ image res_frm = blank(w, h);
-
-        for (int x = 0; x < w; x++)
-            for (int y = 0; y < h; y++)
-                res_frm.dot(greyscale(orig_frm.pixel(x, y)), x, y);
-
-        res[f] = res_frm;
-    }
-
+    for (int x = 0; x < orig.w; x++)
+        for (int y = 0; y < orig.h; y++)
+            res.dot(greyscale(orig.pixel(x, y)), x, y);
+    
     return res;
 }
 

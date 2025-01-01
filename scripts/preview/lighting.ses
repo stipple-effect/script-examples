@@ -4,13 +4,14 @@
     ~ image[] frames = new image[FRAME_COUNT];
 
     for (int i = 0; i < FRAME_COUNT; i++) {
-        image frame = blank(player.w, player.h);
+        image frame = new_image_of(player.w, player.h);
         frame.draw(player, 0, 0);
         
         if (i == LEVELS)
             frames[i] = frame;
         else {
-            ~ (image -> image) f = i < LEVELS ? ::warm : ::cool;
+            ~ (color -> color) color_func = i < LEVELS ? ::warm_c : ::cool_c;
+            ~ (image -> image) f = input -> transform(input, color_func);
             ~ int reps = abs(LEVELS - i);
 
             for (int r = 0; r < reps; r++)
@@ -23,12 +24,9 @@
     return frames;
 }
 
-warm(~ image orig -> image) -> transform(orig, ::warm_c)
-cool(~ image orig -> image) -> transform(orig, ::cool_c)
-
 transform(~image orig, ~ (color -> color) color_func -> image) {
     ~ {color:color} cache = new {color:color};
-    ~ image res = blank(orig.w, orig.h);
+    ~ image res = new_image_of(orig.w, orig.h);
 
     for (int x = 0; x < orig.w; x++)
         for (int y = 0; y < orig.h; y++) {

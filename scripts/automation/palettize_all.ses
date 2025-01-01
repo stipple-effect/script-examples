@@ -2,7 +2,7 @@
 () {
     ~ palette pal = $SE.get_pal();
 
-    for (~ project p in $SE.get_projects()) {
+    for (p in $SE.get_projects()) {
         p.palettize(pal, $SE.PROJECT, true, true);
         p.save();
     }

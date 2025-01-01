@@ -5,7 +5,7 @@
 
     for (int f = 0; f < fc; f++) {
         image cel = l.get_cel(f);
-        l.edit_cel(f, outline_and_fill(p, cel, #ffffff));
+        l.edit_cel(f, outline_and_fill(p, cel, $SE.get_primary()));
     }
 
     p.deselect();

@@ -1,0 +1,20 @@
+() {
+    for (p in $SE.get_projects()) {
+        p.set_layer_index(0);
+        p.add_layer();
+        p.move_layer_down();
+
+        ~ layer l = p.get_layer();
+        l.link_cels();
+        l.set_cel(0, black_bg(p));
+    }
+}
+
+black_bg(project p -> image) {
+    ~ int w = p.get_width();
+    ~ int h = p.get_height();
+
+    ~ image bg = new_image_of(w, h);
+    bg.fill(#000000, 0, 0, w, h);
+    return bg;
+}

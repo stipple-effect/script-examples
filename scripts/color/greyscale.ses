@@ -1,6 +1,4 @@
 (color c -> color) {
-    int total = c.r + c.g + c.b;
-    int avg = total / 3;
-
+    int avg = (c.r + c.g + c.b) / 3;
     return rgba(avg, avg, avg, c.a);
 }

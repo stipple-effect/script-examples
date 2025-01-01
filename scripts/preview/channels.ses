@@ -2,15 +2,17 @@
     ~ int w = orig.w; ~ int h = orig.h;
     ~ bool vert = w > h;
 
-    ~ (color -> color)[] fs = [ ::red, ::green, ::blue ];
+    ~ (color -> color)[] fs = [
+        ::iso_r, ::iso_g, ::iso_b
+    ];
 
     ~ int CHANNELS = #|fs;
     ~ image separated = vert
-            ? blank(w, h * CHANNELS)
-            : blank(w * CHANNELS, h);
+            ? new_image_of(w, h * CHANNELS)
+            : new_image_of(w * CHANNELS, h);
 
     for (int i = 0; i < CHANNELS; i++) {
-        ~ image c_img = blank(w, h);
+        ~ image c_img = new_image_of(w, h);
         ~ (color -> color) f = fs[i];
 
         for (int x = 0; x < w; x++)
@@ -23,6 +25,6 @@
     return separated;
 }
 
-red(~ color c -> color) -> rgba(c.r, 0, 0, c.a)
-green(~ color c -> color) -> rgba(0, c.g, 0, c.a)
-blue(~ color c -> color) -> rgba(0, 0, c.b, c.a)
+iso_r(color c -> color) -> rgba(c.r, 0, 0, c.a)
+iso_g(color c -> color) -> rgba(0, c.g, 0, c.a)
+iso_b(color c -> color) -> rgba(0, 0, c.b, c.a)
