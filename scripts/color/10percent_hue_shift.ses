@@ -1,4 +1,4 @@
-(~ color c -> color) -> $SE.hsv(shiftedHue(c), c.sat, c.val, c.a)
+(~ color c -> color) -> $Graphics.hsv(shiftedHue(c), c.sat, c.val, c.a)
 
 shiftedHue(~ color c -> float) {
     ~ float SHIFT = 0.1;

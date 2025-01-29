@@ -13,7 +13,7 @@
     s = min(s * AMBIENT_FACTOR, 1.0);
     v /= AMBIENT_FACTOR;
 
-    return $SE.hsv(h, s, v, c.a);
+    return $Graphics.hsv(h, s, v, c.a);
 }
 
 diff(float ref, float val -> float) {
