@@ -59,7 +59,7 @@ warm_c(~ color c -> color) {
     s = min(s * AMBIENT_FACTOR, 1.0);
     v = min(v * AMBIENT_FACTOR, 1.0);
 
-    return $SE.hsv(h, s, v, c.a);
+    return $Graphics.hsv(h, s, v, c.a);
 }
 
 cool_c(~ color c -> color) {
@@ -77,7 +77,7 @@ cool_c(~ color c -> color) {
     s = min(s * AMBIENT_FACTOR, 1.0);
     v /= AMBIENT_FACTOR;
 
-    return $SE.hsv(h, s, v, c.a);
+    return $Graphics.hsv(h, s, v, c.a);
 }
 
 diff(float ref, float val -> float) {
